@@ -4,7 +4,7 @@ metadata:
   name: my
   namespace: sn-platform
 spec:
-  image: streamnative/pulsar:2.9.2.15
+  image: streamnative/pulsar:2.9.2.17
   replicas: 4
   pod:
     resources:
