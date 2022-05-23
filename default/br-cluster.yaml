@@ -14,5 +14,5 @@ spec:
   config:
     custom:
       webSocketServiceEnabled: "true"
-  replicas: 2
+  replicas: 3
   zkServers: my-zk-headless:2181
