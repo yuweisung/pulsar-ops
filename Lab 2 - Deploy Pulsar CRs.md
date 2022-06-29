@@ -1,4 +1,4 @@
-##Lab 2 - Deploy Pulsar CRs
+## Lab 2 - Deploy Pulsar CRs
 
 ### Instructions
 
