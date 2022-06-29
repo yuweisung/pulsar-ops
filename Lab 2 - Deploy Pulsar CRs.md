@@ -1,14 +1,17 @@
-Lab 2 - Deploy Pulsar CRs
+##Lab 2 - Deploy Pulsar CRs
+
+### Instructions
 
 1. Downloading CR examples
-
+```
 git clone https://github.com/yuweisung/pulsar-ops.git
 cd pulsar-ops/default
-
+```
 2. Customizing the zk-cluster spec
 
-# Modifying pod resources
+Modifying pod resources
 
+```
 cat zk-cluster.yaml
 
 apiVersion: zookeeper.streamnative.io/v1alpha1
@@ -38,26 +41,30 @@ spec:
       resources:
         requests:
           storage: "2Gi"
-
+```
 
 3. Creating the zk-cluster CR
 
-# Open a terminal and watch the zk operator log
+Open a terminal and watch the zk operator log
+```
 kubectl logs -n sn-system pulsar-operator-zookeeper-controller-manager-6bccdb8469-48qtk -f
+```
 
-# In another terminal, create namespace and apply the CR
+In another terminal, create namespace and apply the CR
 kubectl create namespace pulsar
-
+```
 kubectl apply -n pulsar -f zk-cluster.yaml
-
-# Record the zk service name/Cluster-IP
+```
+Record the zk service name/Cluster-IP
+```
 kubectl get service -n pulsar
+```
 
 4. Creating the bk-cluster CR
 
-# Modify the pod resources
-# Add zk-service name to zkServers
-
+Modify the pod resources
+Add zk-service name to zkServers
+```
 cat bk-cluster.yaml
 
 apiVersion: bookkeeper.streamnative.io/v1alpha1
@@ -96,16 +103,17 @@ spec:
   zkServers: my-zk-headless:2181
 
 kubectl apply -n pulsar -f bk-cluster.yaml
-
-# Watch the pod
-
+```
+Watch the pod
+```
 kubectl get pod -n pulsar -w
+```
 
 5. Creating the br-cluster CR
 
-# Modify the pod resource
-# Add zk-service name to zkServers
-
+Modify the pod resource
+Add zk-service name to zkServers
+```
 cat br-cluster.yaml
 
 apiVersion: pulsar.streamnative.io/v1alpha1
@@ -126,22 +134,26 @@ spec:
       webSocketServiceEnabled: "true"
   replicas: 1
   zkServers: my-zk-headless:2181
+```
 
+```
 kubectl apply -n pulsar br-cluster.yaml
+```
 
-# Watch the pod
-
+Watch the pod
+```
 kubectl get pod -n pulsar -w
-
-# Record the zk service name/Cluster-IP
-
+```
+Record the zk service name/Cluster-IP
+```
 kubectl get service -n pulsar
-
+```
 6. Creating the px-cluster CR
 
-# Modify the pod resource
-# Add broker-service name to brokerAddress
+Modify the pod resource
+Add broker-service name to brokerAddress
 
+```
 cat px-cluster.yaml
 
 apiVersion: pulsar.streamnative.io/v1alpha1
@@ -165,13 +177,16 @@ spec:
           cpu: 100m
           memory: 128Mi
     replicas: 1
+```
 
+```
 kubectl apply -n pulsar px-cluster.yaml
+```
 
-# Watch the pod
-
+Watch the pod
+```
 kubectl get pod -n pulsar -w
-
+```
 
 
 
