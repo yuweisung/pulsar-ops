@@ -15,3 +15,7 @@ Lab 3 link describes the reconfiguration of CRs
 ## Lab 4 Use SN-Platform to compose Pulsar cluster
 
 Lab 4 link describes the instructions of sn-platform composition.
+
+## Lab 5 SN-Platform Deep Dive
+
+Lab 5 Link describes the instructions of sn-platform deep dive
