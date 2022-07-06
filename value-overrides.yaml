@@ -1,0 +1,11 @@
+components:
+  vault: false
+  functions: false
+  toolset: false
+  streamnative_console: false
+  pulsar_detector: false
+
+#authn and authz settings
+auth:
+  vault:
+    enabled: false
