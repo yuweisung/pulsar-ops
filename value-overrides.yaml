@@ -1,6 +1,6 @@
 initialize: true
 components:
-  vault: true
+  vault: false
   functions: false
   toolset: false
   streamnative_console: false
