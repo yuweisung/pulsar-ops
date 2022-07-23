@@ -21,6 +21,8 @@ auth:
     enabled: false 
   authorization:
     enabled: false
+  superUsers:
+    streamnative_console: "super"
 
 ingress:
   proxy:
