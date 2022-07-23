@@ -141,8 +141,11 @@ wrote sn-training/sn-platform/templates/proxy/proxy-cluster.yaml
 wrote sn-training/sn-platform/templates/vault/vault-statefulset.yaml
 wrote sn-training/sn-platform/templates/zookeeper/zookeeper-cluster.yaml
 ```
+
 2. Review the content of zookeeper-cluster.yaml and relative manifests
+
 3. Review the content of bookkeeper-cluster.yaml and relative manifests
+
 4. Review the content of broker-cluster.ymal and relative manifests
 
 

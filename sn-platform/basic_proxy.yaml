@@ -1,4 +1,4 @@
-initialize: true
+
 components:
   vault: false
   functions: false

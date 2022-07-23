@@ -1,8 +1,9 @@
-initialize: true
+
 components:
   vault: false
   pulsar_detector: false
   streamnative_console: false
+  toolset: false
 
 affinity:
   anti_affinity: false
@@ -130,5 +131,3 @@ proxy:
     extraOptions: []
     gcLoggingOptions: []
 
-toolset:
-  useProxy: true
