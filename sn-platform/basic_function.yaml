@@ -1,0 +1,134 @@
+initialize: true
+components:
+  vault: false
+  pulsar_detector: false
+  streamnative_console: false
+
+affinity:
+  anti_affinity: false
+
+monitoring:
+  prometheus: false
+  grafana: false
+  node_exporter: false
+  alert_manager: false
+
+auth:
+  vault:
+    enabled: false
+  authentication:
+    enabled: false
+  authorization:
+    enabled: false
+
+zookeeper:
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "0.1"
+    limits:
+      memory: "1Gi"
+      cpu: "0.4"
+  jvm:
+    memoryOptions:
+    - >
+      -Xms64m -Xmx128m
+    gcOptions:
+    - >
+      -XX:+UseG1GC
+      -XX:MaxGCPauseMillis=30
+      -Dcom.sun.management.jmxremote
+      -Djute.maxbuffer=10485760
+      -XX:+ParallelRefProcEnabled
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+DoEscapeAnalysis
+      -XX:+PerfDisableSharedMem
+      -Dzookeeper.forceSync=no
+    extraOptions: []
+    gcLoggingOptions: []
+
+bookkeeper:
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "0.2"
+    limits:
+      memory: "2Gi"
+      cpu: "0.8"
+  jvm:
+    memoryOptions:
+    - >
+      -Xms128m
+      -Xmx256m
+      -XX:MaxDirectMemorySize=256m
+    gcOptions:
+    - >
+      -XX:+UseG1GC
+      -XX:MaxGCPauseMillis=30
+      -XX:+ParallelRefProcEnabled
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+DoEscapeAnalysis
+      -XX:ParallelGCThreads=4
+      -XX:ConcGCThreads=4
+      -XX:+DisableExplicitGC
+      -XX:-ResizePLAB
+      -XX:+PerfDisableSharedMem
+    extraOptions: []
+    gcLoggingOptions: []
+
+broker:
+  replicaCount: 2
+  autoscaling:
+    maxReplicas: 3
+  kop:
+    enable: false
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "0.2"
+    limits:
+      memory: "2Gi"
+      cpu: "0.8"
+  jvm:
+    memoryOptions:
+      - >
+        -Xms128m -Xmx256m -XX:MaxDirectMemorySize=256m
+    gcOptions:
+      - >
+        -XX:+UseG1GC
+        -XX:MaxGCPauseMillis=30
+        -Dio.netty.leakDetectionLevel=disabled
+        -Dio.netty.recycler.linkCapacity=1024
+        -XX:+ParallelRefProcEnabled
+        -XX:+UnlockExperimentalVMOptions
+        -XX:+DoEscapeAnalysis
+        -XX:ParallelGCThreads=4
+        -XX:ConcGCThreads=4
+        -XX:-ResizePLAB
+        -XX:+PerfDisableSharedMem
+    extraOptions: []
+    gcLoggingOptions: []
+  
+proxy:
+  jvm:
+    memoryOptions:
+    - >
+      -Xms64m -Xmx64m -XX:MaxDirectMemorySize=64m
+    gcOptions:
+    - >
+      -XX:+UseG1GC
+      -XX:MaxGCPauseMillis=30
+      -Dio.netty.leakDetectionLevel=disabled
+      -Dio.netty.recycler.linkCapacity=1024
+      -XX:+ParallelRefProcEnabled
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+DoEscapeAnalysis
+      -XX:ParallelGCThreads=4
+      -XX:ConcGCThreads=4
+      -XX:-ResizePLAB
+      -XX:+PerfDisableSharedMem
+    extraOptions: []
+    gcLoggingOptions: []
+
+toolset:
+  useProxy: true

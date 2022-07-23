@@ -38,9 +38,6 @@ streamnative/pulsar-operator	0.7.0        	0.7.0      	Apache Pulsar Operators H
 3. Installing pulsar-operator
 ```
 kubectl create namespace sn-system
-kubectl apply -f https://github.com/streamnative/charts/blob/e99f28e2744cfc09fce56083aec9f00fc2782e9a/charts/pulsar-operator/crds/bookkeeper.streamnative.io_bookkeeperclusters.yaml
-kubectl apply -f https://github.com/streamnative/charts/blob/e99f28e2744cfc09fce56083aec9f00fc2782e9a/charts/pulsar-operator/crds/pulsar.streamnative.io_pulsarbrokers.yaml
-kubectl apply -f https://github.com/streamnative/charts/blob/e99f28e2744cfc09fce56083aec9f00fc2782e9a/charts/pulsar-operator/crds/zookeeper.streamnative.io_zookeeperclusters.yaml
 helm install pulsar-operator -n sn-system streamnative/pulsar-operator
 ```
 
