@@ -38,7 +38,10 @@ streamnative/pulsar-operator	0.7.0        	0.7.0      	Apache Pulsar Operators H
 3. Installing pulsar-operator
 ```
 kubectl create namespace sn-system
-helm install pulsar-operator -n sn-system streamnative/pulsar-operator --version 0.11.5
+kubectl apply -f https://github.com/streamnative/charts/blob/e99f28e2744cfc09fce56083aec9f00fc2782e9a/charts/pulsar-operator/crds/bookkeeper.streamnative.io_bookkeeperclusters.yaml
+kubectl apply -f https://github.com/streamnative/charts/blob/e99f28e2744cfc09fce56083aec9f00fc2782e9a/charts/pulsar-operator/crds/pulsar.streamnative.io_pulsarbrokers.yaml
+kubectl apply -f https://github.com/streamnative/charts/blob/e99f28e2744cfc09fce56083aec9f00fc2782e9a/charts/pulsar-operator/crds/zookeeper.streamnative.io_zookeeperclusters.yaml
+helm install pulsar-operator -n sn-system streamnative/pulsar-operator
 ```
 
 4. Checking operator status
@@ -56,12 +59,6 @@ kubectl api-resources | egrep 'streamnative'
 
 bookkeeperclusters                bk            bookkeeper.streamnative.io/v1alpha1    true         BookKeeperCluster
 pulsarbrokers                     pb,broker     pulsar.streamnative.io/v1alpha1        true         PulsarBroker
-pulsarconnections                 pconn         pulsar.streamnative.io/v1alpha1        true         PulsarConnection
-pulsarnamespaces                  pns           pulsar.streamnative.io/v1alpha1        true         PulsarNamespace
-pulsarpermissions                 ppermission   pulsar.streamnative.io/v1alpha1        true         PulsarPermission
-pulsarproxies                     pp,proxy      pulsar.streamnative.io/v1alpha1        true         PulsarProxy
-pulsartenants                     ptenant       pulsar.streamnative.io/v1alpha1        true         PulsarTenant
-pulsartopics                      ptopic        pulsar.streamnative.io/v1alpha1        true         PulsarTopic
 zookeeperclusters                 zk            zookeeper.streamnative.io/v1alpha1     true         ZooKeeperCluster
 ```
 6. Explaining CR

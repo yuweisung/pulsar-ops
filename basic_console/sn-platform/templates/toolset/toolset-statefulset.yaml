@@ -1,0 +1,98 @@
+---
+# Source: sn-platform/templates/toolset/toolset-statefulset.yaml
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "test-sn-platform-toolset"
+  namespace: pulsar
+  labels:
+    app: sn-platform
+    chart: sn-platform-1.5.4
+    release: test
+    heritage: Helm
+    cluster: test-sn-platform
+    component: toolset
+spec:
+  serviceName: "test-sn-platform-toolset"
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: sn-platform
+      release: test
+      component: toolset
+  template:
+    metadata:
+      labels:
+        app: sn-platform
+        release: test
+        cluster: test-sn-platform
+        component: toolset
+      annotations:
+        checksum/config: 7a16b20a1a2934b368e8629d12ff0b10e178275642fd21127a730b9a8b0ecf1c
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: "pulsar"
+        
+        image: "streamnative/sn-platform:2.9.2.17"
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 0.1
+            memory: 256Mi
+        command: ["sh", "-c"]
+        args:
+        - >
+          bin/apply-config-from-env.py conf/client.conf;
+          bin/apply-config-from-env.py conf/bookkeeper.conf;
+          
+          echo "Configuring pulsarctl context ...";
+          mkdir -p /root/.config/pulsar;
+          cp /pulsar/conf/pulsarctl.config /root/.config/pulsar/config;
+          echo "Successfully configured pulsarctl context.";
+          sleep 10000000000
+        envFrom:
+        - configMapRef:
+            name: "test-sn-platform-toolset"
+        env:
+        volumeMounts:
+        
+        
+        - name: "test-sn-platform-toolset-log4j2"
+          mountPath: "/pulsar/conf/log4j2.yaml"
+          subPath: log4j2.yaml
+        - name: "test-sn-platform-toolset-pulsarctl"
+          mountPath: "/pulsar/conf/pulsarctl.config"
+          subPath: pulsarctl.config
+      volumes:
+      
+      
+      - name: "test-sn-platform-toolset-log4j2"
+        configMap:
+          name: "test-sn-platform-toolset"
+      
+      - name: "test-sn-platform-toolset-pulsarctl"
+        configMap:
+          name: "test-sn-platform-toolset"
+      serviceAccountName: test-sn-platform-toolset-acct

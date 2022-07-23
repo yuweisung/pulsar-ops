@@ -1,0 +1,108 @@
+---
+# Source: sn-platform/templates/prometheus/pulsar-operators-rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-sn-platform-pulsar-operator
+  namespace: pulsar
+---
+# Source: sn-platform/templates/prometheus/pulsar-operators-rbac.yaml
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: "test-sn-platform-pulsar-operator"
+  labels:
+    app: sn-platform
+    chart: sn-platform-1.5.4
+    release: test
+    heritage: Helm
+    cluster: test-sn-platform
+rules:
+- apiGroups: [""]
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: ["get", "list", "watch"]
+- nonResourceURLs: ["/metrics"]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources:
+    - namespaces
+    - persistentvolumes
+    - persistentvolumeclaims
+  verbs:
+    - list
+    - watch
+    - get
+    - create
+- apiGroups: ["", "extensions", "apps"]
+  resources:
+    - pods
+    - deployments
+    - ingresses
+    - secrets
+    - statefulsets
+  verbs:
+    - list
+    - watch
+    - get
+    - update
+    - create
+    - delete
+    - patch
+- apiGroups: [""]
+  resources:
+    - replicasets
+  verbs:
+    - list
+    - watch
+    - get
+- apiGroups: [""]
+  resources:
+    - events
+  verbs:
+    - list
+    - watch
+    - get
+- apiGroups:
+    - "rbac.authorization.k8s.io"
+  resources:
+    - clusterrolebindings
+    - clusterroles
+  verbs:
+    - "*"
+---
+# Source: sn-platform/templates/prometheus/pulsar-operators-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: "test-sn-platform-pulsar-operator-cluster-role-binding"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: "test-sn-platform-pulsar-operator"
+subjects:
+- kind: ServiceAccount
+  name: test-sn-platform-pulsar-operator
+  namespace: pulsar

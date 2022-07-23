@@ -1,0 +1,119 @@
+---
+# Source: sn-platform/templates/streamnative-console/streamnative-console-statefulset.yaml
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "test-sn-platform-streamnative-console"
+  namespace: pulsar
+  labels:
+    app: sn-platform
+    chart: sn-platform-1.5.4
+    release: test
+    heritage: Helm
+    cluster: test-sn-platform
+    component: streamnative-console
+spec:
+  serviceName: "test-sn-platform-streamnative-console"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sn-platform
+      release: test
+      component: streamnative-console
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+
+
+  template:
+    metadata:
+      labels:
+        app: sn-platform
+        release: test
+        cluster: test-sn-platform
+        component: streamnative-console
+      annotations:
+    spec:
+      terminationGracePeriodSeconds: 0
+      initContainers:
+      # This init container will wait for broker to be ready before
+      # deploying the pulsar manager
+      - name: wait-broker-ready
+        image: "streamnative/sn-platform:2.9.2.17"
+        imagePullPolicy: IfNotPresent
+        command: ["sh", "-c"]
+        args:
+          - >
+            set -e; while [ "$(curl -s -o /dev/null -w '%{http_code}' http://test-sn-platform-broker:8080/status.html)" -ne "200" ]; do echo "pulsar cluster isn't initialized yet..."; sleep 5; done;
+            echo "broker cluster is ready";
+      containers:
+        - name: "test-sn-platform-streamnative-console"
+          image: "streamnative/sn-platform-console:v1.12.0"
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 250Mi
+          readinessProbe:
+            tcpSocket:
+              port: 7750
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 10
+          livenessProbe:
+            tcpSocket:
+              port: 7750
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 10
+          env:
+          - name: SPRING_CONFIGURATION_FILE
+            value: /pulsar-manager/pulsar-manager/application.properties
+          - name: DEFAULT_ORGANIZATION
+            value: streamnative
+          - name: DEFAULT_NAME
+            value: 
+          - name: INSTANCE_NAME
+            value: pulsar
+          - name: CONNECTOR_ENABLED
+            value: "true"
+          - name: WEB_SERVICE_URL
+            value: http://test-sn-platform-broker.pulsar.svc.cluster.local:8080
+          - name: KOP_SERVICE_URL
+            value: :9093
+          - name: VAULT_ENABLED
+            value: "false"
+          
+          ports:
+          - name: frontend
+            containerPort: 9527
+          - name: backend
+            containerPort: 7750
+
+          volumeMounts:
+          - name: streamnative-console-data
+            mountPath: /data
+
+      volumes:
+      - name: streamnative-console-data
+        persistentVolumeClaim:
+          claimName: "test-sn-platform-streamnative-console-data"
+      serviceAccountName: test-sn-platform-streamnative-console-acct

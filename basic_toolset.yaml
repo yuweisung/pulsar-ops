@@ -1,0 +1,25 @@
+initialize: true
+components:
+  vault: false
+  functions: false
+  toolset: true
+  pulsar_detector: false
+  streamnative_console: false
+  proxy: false
+
+affinity:
+  anti_affinity: false
+
+monitoring:
+  prometheus: false
+  grafana: false
+  node_exporter: false
+  alert_manager: false
+
+auth:
+  vault:
+    enabled: false
+  authentication:
+    enabled: false
+  authorization:
+    enabled: false
