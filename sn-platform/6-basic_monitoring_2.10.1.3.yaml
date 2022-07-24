@@ -47,6 +47,7 @@ auth:
 zookeeper:
   securityContext:
     runAsNonRoot: false
+    runAsUser: 0
   resources:
     requests:
       memory: "256Mi"
@@ -75,6 +76,7 @@ zookeeper:
 bookkeeper:
   securityContext:
     runAsNonRoot: false
+    runAsUser: 0
   resources:
     requests:
       memory: "512Mi"
@@ -164,6 +166,7 @@ proxy:
 prometheus:
   securityContext:
     runAsNonRoot: false
+    runAsUser: 0
   scrape:
     ingress_controller: false
     node_exporter: false
