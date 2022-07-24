@@ -21,7 +21,7 @@
 [Lab 5](https://github.com/yuweisung/pulsar-ops/blob/main/Lab%205%20-%20sn-platform%20Deep%20Dive.md) describes the instructions of sn-platform deep dive
 
 ---
-## Some sn-platform examples:
+## Some sn-platform examples
 
 * [1-basic](sn-platform/1-basic.yaml) - 3 zk, 3 bk, 1 br and 1 autorecovery.
 * [2-basic_toolset](sn-platform/2-basic_toolset.yaml) - 3 zk, 3 bk, 1 br and 1 toolset.
