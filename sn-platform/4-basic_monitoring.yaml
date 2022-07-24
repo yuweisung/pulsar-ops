@@ -144,6 +144,7 @@ proxy:
 prometheus:
   scrape:
     ingress_controller: false
+    function_worker: false
     node_exporter: false
     vault: false
   service:
