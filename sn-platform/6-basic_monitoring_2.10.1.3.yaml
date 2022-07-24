@@ -45,6 +45,8 @@ auth:
     enabled: false
 
 zookeeper:
+  securityContext:
+    runAsNonRoot: false
   resources:
     requests:
       memory: "256Mi"
@@ -71,6 +73,8 @@ zookeeper:
     gcLoggingOptions: []
 
 bookkeeper:
+  securityContext:
+    runAsNonRoot: false
   resources:
     requests:
       memory: "512Mi"
@@ -100,6 +104,8 @@ bookkeeper:
     gcLoggingOptions: []
 
 broker:
+  securityContext:
+    runAsNonRoot: false
   replicaCount: 2
   autoscaling:
     maxReplicas: 3
@@ -156,6 +162,8 @@ proxy:
     gcLoggingOptions: []
 
 prometheus:
+  securityContext:
+    runAsNonRoot: false
   scrape:
     ingress_controller: false
     node_exporter: false
