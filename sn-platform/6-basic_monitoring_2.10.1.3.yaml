@@ -1,16 +1,38 @@
 
 components:
   vault: false
-  pulsar_detector: false
   streamnative_console: false
   toolset: false
+  functions: false
+  pulsar_detector: false  
+
+images:
+  zookeeper:
+    tag: "2.10.1.3"
+  bookie:
+    tag: "2.10.1.3"
+  autorecovery:
+    tag: "2.10.1.3"
+  broker:
+    tag: "2.10.1.3"
+  proxy:
+    tag: "2.10.1.3"
+  pulsar_metadata:
+    tag: "2.10.1.3"
 
 affinity:
   anti_affinity: false
 
+ingress:
+  proxy:
+    enabled: true
+    tls:
+      enabled: false
+    type: LoadBalancer
+
 monitoring:
-  prometheus: false
-  grafana: false
+  prometheus: true
+  grafana: true
   node_exporter: false
   alert_manager: false
 
@@ -21,13 +43,6 @@ auth:
     enabled: false
   authorization:
     enabled: false
-
-ingress:
-  proxy:
-    enabled: true
-    tls:
-      enabled: false
-    type: LoadBalancer
 
 zookeeper:
   resources:
@@ -119,7 +134,7 @@ broker:
   
 proxy:
   websocket:
-    enabled: true
+    enabled: false
   jvm:
     memoryOptions:
     - >
@@ -140,3 +155,17 @@ proxy:
     extraOptions: []
     gcLoggingOptions: []
 
+prometheus:
+  scrape:
+    ingress_controller: false
+    node_exporter: false
+    vault: false
+  service:
+    type: ClusterIP
+
+grafana:
+  service:
+    type: ClusterIP
+  admin:
+    user: pulsar
+    password: pulsar

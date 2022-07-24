@@ -120,7 +120,7 @@ broker:
   
 proxy:
   websocket:
-    enabled: true
+    enabled: false
   jvm:
     memoryOptions:
     - >
