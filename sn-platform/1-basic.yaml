@@ -2,7 +2,7 @@
 components:
   vault: false
   functions: false
-  toolset: false
+  #toolset: false
   pulsar_detector: false
   streamnative_console: false
   proxy: false
@@ -35,7 +35,8 @@ zookeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms64m -Xmx128m
+      -XX:InitialRAMPercentage=90
+      -XX:MaxRAMPercentage=90
     gcOptions:
     - >
       -XX:+UseG1GC
@@ -43,7 +44,6 @@ zookeeper:
       -Dcom.sun.management.jmxremote
       -Djute.maxbuffer=10485760
       -XX:+ParallelRefProcEnabled
-      -XX:+UnlockExperimentalVMOptions
       -XX:+DoEscapeAnalysis
       -XX:+PerfDisableSharedMem
       -Dzookeeper.forceSync=no
@@ -61,18 +61,14 @@ bookkeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms128m
-      -Xmx256m
-      -XX:MaxDirectMemorySize=256m
+      -XX:InitialRAMPercentage=45
+      -XX:MaxRAMPercentage=45
     gcOptions:
     - >
       -XX:+UseG1GC
       -XX:MaxGCPauseMillis=30
       -XX:+ParallelRefProcEnabled
-      -XX:+UnlockExperimentalVMOptions
       -XX:+DoEscapeAnalysis
-      -XX:ParallelGCThreads=4
-      -XX:ConcGCThreads=4
       -XX:+DisableExplicitGC
       -XX:-ResizePLAB
       -XX:+PerfDisableSharedMem
@@ -92,7 +88,8 @@ broker:
   jvm:
     memoryOptions:
       - >
-        -Xms128m -Xmx256m -XX:MaxDirectMemorySize=256m
+        -XX:InitialRAMPercentage=50
+        -XX:MaxRAMPercentage=50
     gcOptions:
       - >
         -XX:+UseG1GC
@@ -100,11 +97,10 @@ broker:
         -Dio.netty.leakDetectionLevel=disabled
         -Dio.netty.recycler.linkCapacity=1024
         -XX:+ParallelRefProcEnabled
-        -XX:+UnlockExperimentalVMOptions
         -XX:+DoEscapeAnalysis
-        -XX:ParallelGCThreads=4
-        -XX:ConcGCThreads=4
         -XX:-ResizePLAB
         -XX:+PerfDisableSharedMem
     extraOptions: []
     gcLoggingOptions: []
+  configData:
+    webSocketServiceEnabled: "true"
