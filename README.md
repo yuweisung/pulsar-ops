@@ -1,7 +1,7 @@
 # pulsar-ops
 ## Pre-requisites
-1. [GKE]()
-2. [Kind]()
+1. [GKE](https://github.com/streamnative/global-se-practice/tree/pulsar-ops/gke)
+2. [Kind](https://github.com/streamnative/global-se-practice/tree/pulsar-ops/kind)
 
 ## Lab 1 Pulsar Operator Installation
 
