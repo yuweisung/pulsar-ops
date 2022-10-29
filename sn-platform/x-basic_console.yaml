@@ -42,7 +42,8 @@ zookeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms64m -Xmx128m
+      -XX:InitialRAMPercentage=90
+      -XX:MaxRAMPercentage=90
     gcOptions:
     - >
       -XX:+UseG1GC
@@ -68,9 +69,8 @@ bookkeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms128m
-      -Xmx256m
-      -XX:MaxDirectMemorySize=256m
+      -XX:InitialRAMPercentage=45
+      -XX:MaxRAMPercentage=45
     gcOptions:
     - >
       -XX:+UseG1GC
@@ -101,8 +101,9 @@ broker:
       cpu: "0.8"
   jvm:
     memoryOptions:
-      - >
-        -Xms128m -Xmx256m -XX:MaxDirectMemorySize=256m
+    - >
+      -XX:InitialRAMPercentage=50
+      -XX:MaxRAMPercentage=50
     gcOptions:
       - >
         -XX:+UseG1GC
@@ -123,7 +124,8 @@ proxy:
   jvm:
     memoryOptions:
     - >
-      -Xms64m -Xmx64m -XX:MaxDirectMemorySize=64m
+      -XX:InitialRAMPercentage=90
+      -XX:MaxRAMPercentage=90
     gcOptions:
     - >
       -XX:+UseG1GC

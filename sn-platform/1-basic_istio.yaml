@@ -111,5 +111,5 @@ istio:
     selector: {}
     namespace: "istio-system"
     tls:
-      mode: SIMPLE
+      mode: STRICT
       certSecretName: "istio-ca-secret"
