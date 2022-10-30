@@ -21,7 +21,7 @@ export NUM_NODES=3
 gcloud container clusters create $GKE_CLUSTER_NAME \
   --project $PROJECT \
 	--zone $ZONE \
-	--enable-dataplane-v2
+	--enable-dataplane-v2 \
 	--no-enable-basic-auth \
 	--cluster-version $K8S_VERSION \
 	--release-channel "regular" \
@@ -33,7 +33,7 @@ gcloud container clusters create $GKE_CLUSTER_NAME \
 	--num-nodes $NUM_NODES \
 	--logging=SYSTEM,WORKLOAD \
 	--monitoring=SYSTEM \
-	--enable-ip-alias \
+	--no-enable-ip-alias \
 	--network "projects/$PROJECT/global/networks/default" \
 	--subnetwork "projects/$PROJECT/regions/$REGION/subnetworks/default" \
 	--no-enable-intra-node-visibility \
