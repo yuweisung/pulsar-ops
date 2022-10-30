@@ -50,3 +50,7 @@ gcloud container clusters create $GKE_CLUSTER_NAME \
 ```
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 ```
+## delete gke cluster
+```
+gcloud container clusters delete $GKE_CLUSTER_NAME --zone $ZONE --quiet
+```
