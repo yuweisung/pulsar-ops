@@ -11,7 +11,7 @@ export PROJECT=sn-se-playground
 export GKE_CLUSTER_NAME=sn-se-ysung1
 export REGION=us-central1
 export ZONE=us-central1-c
-export K8S_VERSION=1.22.12-gke.500
+export K8S_VERSION=1.23.8-gke.1900
 export MACHINE_TYPE=e2-standard-2
 export DISK_SIZE=100
 export NUM_NODES=3
@@ -21,6 +21,7 @@ export NUM_NODES=3
 gcloud container clusters create $GKE_CLUSTER_NAME \
   --project $PROJECT \
 	--zone $ZONE \
+	--enable-dataplane-v2
 	--no-enable-basic-auth \
 	--cluster-version $K8S_VERSION \
 	--release-channel "regular" \
