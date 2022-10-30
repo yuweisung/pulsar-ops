@@ -33,7 +33,7 @@ components:
 
 ```
 kubectl create namespace sn-training
-helm install sn-platform -n sn-training streamnative/sn-platform -f value-overrides.yaml
+helm install sn-platform -n sn-training streamnative/sn-platform --set initialize=true -f value-overrides.yaml
 ```
 
 5. Watch the pods
