@@ -33,7 +33,7 @@ gcloud container clusters create $GKE_CLUSTER_NAME \
 	--num-nodes $NUM_NODES \
 	--logging=SYSTEM,WORKLOAD \
 	--monitoring=SYSTEM \
-	--no-enable-ip-alias \
+	--enable-ip-alias \
 	--network "projects/$PROJECT/global/networks/default" \
 	--subnetwork "projects/$PROJECT/regions/$REGION/subnetworks/default" \
 	--no-enable-intra-node-visibility \
