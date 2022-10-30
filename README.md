@@ -25,7 +25,7 @@
 
 ## 6. SN-Platform Self-signed TLS
 
-[Lab 6](https://github.com/streamnative/global-se-practice/tree/pulsar-ops/Lab%206%20-sn-platform%20self-sign.md) describe how to setup self-signed tls without cert-manager
+[Lab 6](https://github.com/streamnative/global-se-practice/tree/pulsar-ops/Lab%206%20-%20sn-platform%20self-sign.md) describe how to setup self-signed tls without cert-manager
 
 ---
 ## Some sn-platform examples
