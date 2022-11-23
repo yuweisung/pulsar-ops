@@ -1,4 +1,4 @@
-## Lab 6 TLS hardway with sn-platform
+## Lab 7 mTLS hardway with sn-platform
 ### Self-signed CA and wide card key/cert
 ```
 # self-sign ca key/cert
@@ -15,5 +15,17 @@ kubectl -n snp create secret generic ca-tls --from-file=ca-crt.pem
 ```
 ### update caCertName and certSecretName in values.yaml
 ```
+
+```
+### client certs
+```
+openssl req -newkey rsa:2048 -keyout client-key.pem -keyform PEM -out client.csr -keyform PEM -subj '/CN=admin'
+openssl rsa -in client-key.pem -out client-key.pem
+openssl x509 -req -days 360 -in client.csr -CA ca-crt.pem -CAkey ca-key.pem -CAcreateserial -out client-crt.pem 
+kubectl -n snp create secret generic client-tls --from-file=ca.crt=./ca-crt.pem --from-file=tls.crt=./client-crt.pem --from-file=tls.key=./client-crt.pem
 ```
 ### re-apply the release
+```
+kubectl create ns snp
+helm upgrade --install -n snp snp1 streamnative/sn-platform --set initialize=true -f sn-platform/1-basic_mtls.yaml
+```
