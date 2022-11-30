@@ -8,7 +8,7 @@ gcloud auth login
 ## gke parameters
 ```
 export PROJECT=sn-se-playground
-export GKE_CLUSTER_NAME=sn-se-ysung1
+export GKE_CLUSTER_NAME=sn-se-ysung2
 export REGION=us-central1
 export ZONE=us-central1-c
 export K8S_VERSION=1.23.12-gke.1600

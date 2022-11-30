@@ -14,7 +14,13 @@ brew install operator-sdk
 operator-sdk olm install
 ```
 
-3. Installing pulsar-operator
+3. Searching operator
+
+```
+kubectl -n olm get packagemanifest
+```
+
+4. Installing pulsar-operator
 ```
 kubectl create -f https://operatorhub.io/install/bookkeeper-operator.yaml
 kubectl create -f https://operatorhub.io/install/zookeeper-operator.yaml
@@ -22,7 +28,7 @@ kubectl create -f https://operatorhub.io/install/pulsar-operator.yaml
 kubectl create -f https://operatorhub.io/install/function-mesh.yaml
 ```
 
-4. Checking operator status
+5. Checking operator status
 ```
 kubectl get csv -n operators
 ```
