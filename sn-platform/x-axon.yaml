@@ -11,7 +11,7 @@ affinity:
 monitoring:
   prometheus: false
   grafana: false
-  node_exporter: false
+  node_exporter: true
   alert_manager: false
 
 images:
@@ -27,7 +27,22 @@ images:
     tag: "2.10.1.3"
   pulsar_metadata:
     tag: "2.10.1.3"
-  
+
+tls:
+  enable: true
+  proxy:
+    enabled: true
+  broker:
+    enabled: true
+  bookie:
+    enabled: true
+  zookeeper:
+    enabled: true
+
+certs:
+  internal_issuer:
+    enabled: true
+
 auth:
   vault:
     enabled: false
@@ -166,3 +181,17 @@ proxy:
     extraOptions: []
     gcLoggingOptions: []
 
+prometheus:
+  scrape:
+    ingress_controller: false
+    node_exporter: true
+    vault: false
+  service:
+    type: ClusterIP
+
+grafana:
+  service:
+    type: LoadBalancer
+  admin:
+    user: axon-poc
+    password: axon-poc
