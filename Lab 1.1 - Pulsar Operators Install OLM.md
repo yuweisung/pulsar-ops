@@ -1,4 +1,4 @@
-## Lab 1 - Pulsar Operators Install
+## Lab 1.1 - OLM Pulsar Operators Install
 
 ### Instructions
 
